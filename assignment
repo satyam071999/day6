@@ -1,0 +1,20 @@
+CREATE TABLE Customer (CustomerID int NOT NULL,CustomerName VARCHAR(20), ContactName VARCHAR(20),Country VARCHAR(20), PRIMARY KEY (CustomerID));
+CREATE TABLE Orders(OrderID int NOT NULL,CustomerID int, OrderDate DATE, PRIMARY KEY (OrderID),
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID));
+
+Insert into Customer values(2,"gopal","900","india");
+Insert into Customer values(3,"santosh","800034","uk");
+Insert into Customer values(4,"gyani","7777","us");
+Insert into Customer values(5,"rahul","90909","us");
+Insert into Customer values(6,"ram","r0009","uk");
+Insert into Orders Values(10,2,"20-04-1999");
+
+Inner Join
+   Select * from customer INNER JOIN  order ON customer.CustomerID=order.CustomerID 
+    GROUP BY  order.OrderID;
+
+ Select C.CustomerID,C.CustomerName,max(OrderID) from customer AS C INNER JOIN  orders AS O ON C.CustomerID=O.CustomerID group by C.CustomerID having max(OrderID) order by C.CustomerID ;
+ right join
+ Select C.CustomerID,C.CustomerName,max(OrderID) from customer  AS C RIGHT JOIN  orders  AS O USING(CustomerID) group by C.CustomerID having max(OrderID) order by C.CustomerID ;
+ FULL JOIN
+  Select * from customer  AS C RIGHT JOIN  orders  AS O USING(CustomerID) group by C.CustomerID having max(OrderID)  UNION ALL SELECT * from customer  AS C RIGHT JOIN  orders  AS O USING(CustomerID) group by C.CustomerID having max(OrderID)  ;
